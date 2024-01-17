@@ -357,11 +357,11 @@ const promptQuestionGetResponse = async (question) => {
   const data = await response.json();
 
 
-  console.log(data.choices[0])
+  console.log(data.choices[0].message.content)
 
-  createTalk(streamId,sessionId, data.choices[0])
+  createTalk(streamId,sessionId, data.choices[0].message.content)
 
-  return data.choices[0].text.trim();
+  return data.choices[0].message.content;
 } 
 
 
