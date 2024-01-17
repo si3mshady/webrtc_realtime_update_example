@@ -29,7 +29,7 @@ def create_talk(stream_id, session_id, dialogue):
     }
     headers = {
         "Content-Type": "application/json",
-        "Accept": "application/json",
+        # "Accept": "application/json",
         "Authorization": f"Basic {KEY}"
     }
 

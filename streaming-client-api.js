@@ -1,10 +1,10 @@
 import DID_API from './api.json' assert { type: 'json' };
 
-const OPENAI_API_KEY = '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'; // Replace with your actual API key
+const OPENAI_API_KEY = 'sk-'; // Replace with your actual API key
 
 if (DID_API.key == '🤫') alert('Please put your api key inside ./api.json and restart..');
 
-const script = "Hey Elliott Happy Martin Luther King day and Happy New Year! Thank you for using or Software! With WebRTC, you can add real time communication capabilities to your application that works on top of an open standard. It supports video, voice and generic data to be sent between peers, allowing developers to build powerful voice and video communication solutions."
+const script = "In this post for Linkedin Elliott Lamar Arnold has configured me to use a Large Language Model from Open AI to answer all questions."
 const image_source_url = "https://as2.ftcdn.net/v2/jpg/00/76/27/53/1000_F_76275384_mRNrmAI89UPWoWeUJfCL9CptRxg3cEoF.jpg"
 
 
@@ -324,16 +324,7 @@ document.getElementById('submit-button').addEventListener('click', async () => {
   await promptQuestionGetResponse(question);
 });
 
-// const promptQuestionGetResponse = async (question) => {
-//   const completion = await openai.chat.completions.create({
-//     messages: [{"role": "system", "content": "You are a helpful assistant."},
-//         {"role": "user", "content": question}],
-//     model: "gpt-3.5-turbo",
-//   });
 
-//   console.log(completion.choices[0])
-//   await createTalk(streamId,sessionId, completion.choices[0])
-// }
 
 
 const promptQuestionGetResponse = async (question) => {
@@ -386,8 +377,8 @@ async function createTalk(stream_id, session_id, dialogue) {
   };
   const headers = {
       "Content-Type": "application/json",
-      "Accept": "application/json",
-      "Authorization": `Basic ${OPENAI_API_KEY}`
+      // "Accept": "application/json",
+      "Authorization": `Basic ${DID_API.key}`
   };
 
   const response = await fetch(url, {
