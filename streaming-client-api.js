@@ -1,5 +1,5 @@
-'use strict';
 import DID_API from './api.json' assert { type: 'json' };
+
 
 if (DID_API.key == '🤫') alert('Please put your api key inside ./api.json and restart..');
 
@@ -314,3 +314,91 @@ async function fetchWithRetries(url, options, retries = 1) {
     }
   }
 }
+
+
+
+document.getElementById('submit-button').addEventListener('click', async () => {
+  const question = document.getElementById('avatar-input').value;
+  console.log('This is the question asked' + question)
+  await promptQuestionGetResponse(question);
+});
+
+// const promptQuestionGetResponse = async (question) => {
+//   const completion = await openai.chat.completions.create({
+//     messages: [{"role": "system", "content": "You are a helpful assistant."},
+//         {"role": "user", "content": question}],
+//     model: "gpt-3.5-turbo",
+//   });
+
+//   console.log(completion.choices[0])
+//   await createTalk(streamId,sessionId, completion.choices[0])
+// }
+
+
+const promptQuestionGetResponse = async (question) => {
+  const OPENAI_API_KEY = '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'; // Replace with your actual API key
+  const url = 'https://api.openai.com/v1/chat/completions'
+    const headers = {
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${OPENAI_API_KEY}`
+  };
+  const body = {
+    model: "gpt-3.5-turbo",
+    messages: [{"role": "user", "content": question}],
+    temperature: 0.7
+  };
+
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: headers,
+    body: JSON.stringify(body)
+  });
+
+  const data = await response.json();
+
+
+  console.log(data.choices[0])
+
+  createTalk(streamId,sessionId, data.choices[0])
+
+  return data.choices[0].text.trim();
+} 
+
+
+async function createTalk(stream_id, session_id, dialogue) {
+  const url = `https://api.d-id.com/talks/streams/${stream_id}`;
+  const payload = {
+      "script": {
+          "input": dialogue,
+          "type": "text",
+          "subtitles": "false",
+          "provider": {
+              "type": "microsoft",
+              "voice_id": "en-US-JennyNeural"
+          },
+          "ssml": "false"
+      },
+      "config": {
+          "fluent": "false",
+          "pad_audio": "0.0"
+      },
+      "session_id": session_id
+  };
+  const headers = {
+      "Content-Type": "application/json",
+      "Accept": "application/json",
+      "Authorization": `Basic ${OPENAI_API_KEY}`
+  };
+
+  const response = await fetch(url, {
+      method: 'POST',
+      headers: headers,
+      body: JSON.stringify(payload)
+  });
+
+  const data = await response.json();
+  console.log(data);
+  return data;
+}
+
+
