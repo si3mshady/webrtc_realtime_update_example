@@ -1,5 +1,6 @@
 import DID_API from './api.json' assert { type: 'json' };
 
+const OPENAI_API_KEY = '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'; // Replace with your actual API key
 
 if (DID_API.key == '🤫') alert('Please put your api key inside ./api.json and restart..');
 
@@ -336,7 +337,6 @@ document.getElementById('submit-button').addEventListener('click', async () => {
 
 
 const promptQuestionGetResponse = async (question) => {
-  const OPENAI_API_KEY = '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'; // Replace with your actual API key
   const url = 'https://api.openai.com/v1/chat/completions'
     const headers = {
     'Content-Type': 'application/json',
