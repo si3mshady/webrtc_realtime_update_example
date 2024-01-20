@@ -1,12 +1,17 @@
 import DID_API from './api.json' assert { type: 'json' };
 
-const OPENAI_API_KEY = 'sk-'; // Replace with your actual API key
+
+
+
+
+
+
 
 if (DID_API.key == '🤫') alert('Please put your api key inside ./api.json and restart..');
 
-const script = "In this post for Linkedin Elliott Lamar Arnold has configured me to use a Large Language Model from Open AI to answer all questions."
-const image_source_url = "https://as2.ftcdn.net/v2/jpg/00/76/27/53/1000_F_76275384_mRNrmAI89UPWoWeUJfCL9CptRxg3cEoF.jpg"
-
+const script = "In this video join us as Elliott Lamar Arnold turns me into a virtual science fiction influencer. Are you as excited as I am?"
+// const image_source_url = "https://as2.ftcdn.net/v2/jpg/00/76/27/53/1000_F_76275384_mRNrmAI89UPWoWeUJfCL9CptRxg3cEoF.jpg"
+const image_source_url = "https://i.ibb.co/VLYSn6b/c0a1c805-457e-4ef6-9c3b-5cf742de9003.jpg"
 
 const RTCPeerConnection = (
   window.RTCPeerConnection ||
@@ -51,7 +56,7 @@ connectButton.onclick = async () => {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      source_url: image_source_url,
+      source_url:  image_source_url,
     }),
   });
 
