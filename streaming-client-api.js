@@ -11,7 +11,7 @@ if (DID_API.key == '🤫') alert('Please put your api key inside ./api.json and 
 
 const script = "In this video join us as Elliott Lamar Arnold turns me into a virtual science fiction influencer. Are you as excited as I am?"
 // const image_source_url = "https://as2.ftcdn.net/v2/jpg/00/76/27/53/1000_F_76275384_mRNrmAI89UPWoWeUJfCL9CptRxg3cEoF.jpg"
-const image_source_url = "https://i.ibb.co/VLYSn6b/c0a1c805-457e-4ef6-9c3b-5cf742de9003.jpg"
+const image_source_url = "https://i.ibb.co/9ytgsRp/OIG2-TRGj.jpg"
 
 const RTCPeerConnection = (
   window.RTCPeerConnection ||
@@ -325,23 +325,22 @@ async function fetchWithRetries(url, options, retries = 1) {
 
 document.getElementById('submit-button').addEventListener('click', async () => {
   const question = document.getElementById('avatar-input').value;
-  console.log('This is the question asked' + question)
+  console.log('This is the question asked ' + question)
   await promptQuestionGetResponse(question);
 });
 
-
-
-
 const promptQuestionGetResponse = async (question) => {
-  const url = 'https://api.openai.com/v1/chat/completions'
+  const url = 'http://localhost:5000/query'
     const headers = {
     'Content-Type': 'application/json',
-    'Authorization': `Bearer ${OPENAI_API_KEY}`
+    'Access-Control-Allow-Origin': '*' ,
+    'Access-Control-Allow-Methods': '*',
+    'Access-Control-Allow-Headers':'*',
+
+
   };
   const body = {
-    model: "gpt-3.5-turbo",
-    messages: [{"role": "user", "content": question}],
-    temperature: 0.7
+    query: question,
   };
 
   const response = await fetch(url, {
@@ -351,14 +350,44 @@ const promptQuestionGetResponse = async (question) => {
   });
 
   const data = await response.json();
+  console.log(data)
 
+  // console.log(data.choices[0].message.content)
 
-  console.log(data.choices[0].message.content)
+  createTalk(streamId,sessionId, data)
 
-  createTalk(streamId,sessionId, data.choices[0].message.content)
-
-  return data.choices[0].message.content;
+  // return data.choices[0].message.content;
 } 
+
+
+
+// const promptQuestionGetResponse = async (question) => {
+//   const url = 'https://api.openai.com/v1/chat/completions'
+//     const headers = {
+//     'Content-Type': 'application/json',
+//     'Authorization': `Bearer ${OPENAI_API_KEY}`
+//   };
+//   const body = {
+//     model: "gpt-3.5-turbo",
+//     messages: [{"role": "user", "content": question}],
+//     temperature: 0.7
+//   };
+
+//   const response = await fetch(url, {
+//     method: 'POST',
+//     headers: headers,
+//     body: JSON.stringify(body)
+//   });
+
+//   const data = await response.json();
+
+
+//   console.log(data.choices[0].message.content)
+
+//   createTalk(streamId,sessionId, data.choices[0].message.content)
+
+//   return data.choices[0].message.content;
+// } 
 
 
 async function createTalk(stream_id, session_id, dialogue) {
